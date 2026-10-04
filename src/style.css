@@ -161,7 +161,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   body { overflow: auto; }
   .topbar { height: auto; flex-wrap: wrap; padding: 8px 16px; }
   .actions { flex-wrap: wrap; margin-left: 0; }
-  .app { display: flex; flex-direction: column; }
+  .app { display: flex; flex-direction: column; flex: none; }
+  .app > * { flex: none; }
   .glyphs { max-height: 200px; border-right: 0; border-bottom: 1px solid var(--line); }
   .glyph-grid { grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); }
   .editor { height: 70vh; }
