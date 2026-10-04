@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Editor de letras</title>
+    <meta name="description" content="Editor de letras experimentales: dibuja esqueletos sobre una grilla y vístelos con formas generativas." />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">Editor de letras</div>
+      <input id="project-name" class="project-name" type="text" spellcheck="false" aria-label="Nombre del proyecto" title="Nombre del proyecto (se usa también como nombre de la fuente)" />
+      <div class="actions">
+        <div class="btn-group">
+          <button id="undo" class="btn" title="Deshacer (⌘Z)">↶ Deshacer</button>
+          <button id="redo" class="btn" title="Rehacer (⇧⌘Z)">Rehacer ↷</button>
+        </div>
+        <div class="btn-group">
+          <button id="new" class="btn">Nuevo</button>
+          <button id="open" class="btn">Abrir…</button>
+          <button id="save" class="btn">Guardar .json</button>
+        </div>
+        <div class="btn-group">
+          <span class="group-label">Exportar</span>
+          <button id="export-png" class="btn">PNG</button>
+          <button id="export-svg" class="btn">SVG</button>
+          <button id="export-otf" class="btn btn-primary">Fuente .otf</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app">
+      <aside class="glyphs" id="glyph-list" aria-label="Glifos"></aside>
+
+      <section class="editor">
+        <div class="toolbar">
+          <span id="current-char" class="current-char">A</span>
+          <div class="seg" role="group" aria-label="Herramientas">
+            <button data-tool="linea" title="Línea (L)">Línea</button>
+            <button data-tool="curva" title="Curva (C)">Curva</button>
+            <button data-tool="mover" title="Mover (V) · doble clic: línea ↔ curva">Mover</button>
+            <button data-tool="borrar" title="Borrar (E)">Borrar</button>
+          </div>
+          <label class="field" title="Ancho del glifo en unidades de grilla">
+            Ancho
+            <button id="width-minus" class="icon-btn" aria-label="Menos ancho">−</button>
+            <output id="width-value">4</output>
+            <button id="width-plus" class="icon-btn" aria-label="Más ancho">+</button>
+          </label>
+          <label class="check"><input id="snap" type="checkbox" checked /> Imán</label>
+          <label class="check"><input id="show-skin" type="checkbox" checked /> Ver piel</label>
+          <div class="spacer"></div>
+          <button id="copy" class="btn btn-small">Copiar</button>
+          <button id="paste" class="btn btn-small">Pegar</button>
+          <button id="clear" class="btn btn-small">Limpiar</button>
+        </div>
+        <div class="canvas-wrap"><canvas id="editor-canvas"></canvas></div>
+        <p class="hint" id="hint"></p>
+      </section>
+
+      <aside class="panel" id="panel">
+        <section>
+          <h2>Piel</h2>
+          <div id="skin-list" class="chips"></div>
+          <p id="skin-desc" class="muted"></p>
+        </section>
+        <section>
+          <h2>Parámetros</h2>
+          <div id="params"></div>
+        </section>
+        <section>
+          <h2>Color</h2>
+          <div class="colors">
+            <label class="color"><input id="colorLetra" type="color" /> Letra</label>
+            <label class="color"><input id="colorFondo" type="color" /> Fondo</label>
+            <button id="swap-colors" class="icon-btn" title="Invertir colores">⇄</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="test" id="test">
+        <div class="test-bar">
+          <textarea id="test-text" rows="1" spellcheck="false" placeholder="Escribe una palabra…" aria-label="Texto de prueba"></textarea>
+          <label class="field">Tamaño <input id="test-size" type="range" min="16" max="240" step="1" /></label>
+        </div>
+        <canvas id="test-canvas"></canvas>
+      </section>
+    </main>
+
+    <input id="file-input" type="file" accept=".json,application/json" hidden />
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
